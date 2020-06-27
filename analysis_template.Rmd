@@ -140,6 +140,9 @@ gp
 gp + ylim(0, 200)
 ```
 
+Comments:
+Figure 2: In general, we see lower viability of cells while drug concentration increases. Drugs 17-AAG, poaclitaxel, PD-0325901, and TAE684 impact the most in the viability of cell-lines. 
+
 ### Using Correlation Measures to Assess Replicability of Drug Response Studies
 
 1. Create a scatterplot for each drug comparing the AUC in GDSC and CCLE for all cell lines (hint: code from Tutorial 1b may help).
@@ -308,7 +311,17 @@ drugCorrs <- summarizedData %>%
 drugCorrs
 
 ```
-    
+
+
+```{r plot-mcc, fig.width = 8, fig.height = 4}
+ggplot(drugCorrs, aes(x = drug, y = matthews_corr)) +
+    geom_bar(stat = "identity") + 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    xlab("Drug") +
+    ylab("Matthews Correlation Coefficient")
+```
+
+
 
 
 7. We have explored Pearson and Spearman correlation, but what about other correlation measures? For example, you could try out distance correlation, which is sensitive to nonlinear relationships. You can find this measure in the `energy` R package, which you'll need to install and load with the following commands:
@@ -322,7 +335,7 @@ drugCorrs
 
 ### Identifying biological factors that influence replicability of pharmacogenomic studies
 
-1. Are there any cell lines that seem to be consistently resistant? (Hint: look for the 5 cell lines which seem the most resistant in both studies according to the average drug response by AUC; code from Tutorial 2a may help) What effect might this have on your conclusions and interpretations of the agreement between the studies? For example, do you observe any increase in replicability (as measured by correlation of drug response) if you exclude the most resistant cell lines?
+1. Are there any cell lines that seem to be consistently resistant? (Hint: look for the 5 cell lines which seem the most resistant in both studies according to the average drug response by AUC; code from Tutorial 2a may help) What effect might this have on your conclusions and interpretations of the agreement between the studies? For example, do you observe any increase in replicability (as measured by correlation of drug response) if you exclude the most resistant cell lines?.
 
 
 
