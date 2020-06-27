@@ -256,6 +256,22 @@ table("GDSC" = summarizedData$sensitivity_GDSC,
     1289 + 565 = 1854
     1854 of the drug-cell lines combinations agree for both sensitivity and resistante between the two studies.
    
+
+```{r, auc-by-sensitivity, fig.width = 7, fig.height = 5}
+summarizedData <-
+    summarizedData %>% 
+    mutate(category = paste(sensitivity_GDSC, sensitivity_CCLE),
+           category = fct_recode(category,
+                                 "Both Resistant" = "Resistant Resistant",
+                                 "Both Sensitive" = "Sensitive Sensitive",
+                                 "GDSC Resistant / CCLE Sensitive" = "Resistant Sensitive",
+                                 "GDSC Sensitive / CCLE Resistant" = "Sensitive Resistant"))
+table(summarizedData$category)
+
+```
+
+
+
 ```{r, sensitivity-all-drugs, fig.width = 12, fig.height = 9}
 ggplot(summarizedData, aes(x = auc_GDSC, y = auc_CCLE, colour = category)) +
     geom_point(cex = 0.5) + 
